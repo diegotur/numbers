@@ -1,11 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+import Header from './src/components/Header';
+import StartGameScreen from './src/screens/StartGameScreen';
+import GameScreen from './src/screens/GameScreen';
+
+SplashScreen.preventAutoHideAsync();
+
 
 export default function App() {
+
+  const [fontsLoaded] = useFonts({
+    'quantico': require('./assets/fonts/Quantico-Regular.ttf'),
+    'pressStart': require('./assets/fonts/PressStart2P-Regular.ttf'),
+  });
+
+  React.useEffect(() =>{
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+
+  }, [fontsLoaded])
+
+  const [userNumber, setUserNumber] = React.useState();
+
+  const startGameHandler = (selectedNumber) => {
+    setUserNumber(selectedNumber);
+  };
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Header title="Adivina el numero" />
+      {
+        !userNumber
+          ? <StartGameScreen onStartGame={startGameHandler} />
+          : <GameScreen userOption={userNumber} />
+      }
     </View>
   );
 }
@@ -13,8 +49,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
