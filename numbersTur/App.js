@@ -7,6 +7,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import Header from './src/components/Header';
 import StartGameScreen from './src/screens/StartGameScreen';
 import GameScreen from './src/screens/GameScreen';
+import GameOverScreen from './src/screens/GameOverScreen';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,7 +19,7 @@ export default function App() {
     'pressStart': require('./assets/fonts/PressStart2P-Regular.ttf'),
   });
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
@@ -26,9 +27,20 @@ export default function App() {
   }, [fontsLoaded])
 
   const [userNumber, setUserNumber] = React.useState();
+  const [guessRounds, setGuessRounds] = React.useState(0);
 
   const startGameHandler = (selectedNumber) => {
     setUserNumber(selectedNumber);
+    setGuessRounds(0);
+  };
+
+  const gameOverHandler = (rounds) => {
+    setGuessRounds(rounds);
+  };
+
+  const reStartHandler = () => {
+    setGuessRounds(0);
+    setUserNumber(null);
   };
 
   if (!fontsLoaded) {
@@ -40,7 +52,9 @@ export default function App() {
       {
         !userNumber
           ? <StartGameScreen onStartGame={startGameHandler} />
-          : <GameScreen userOption={userNumber} />
+          : userNumber && guessRounds <= 0 ?
+            <GameScreen userOption={userNumber} onGameOver={gameOverHandler} /> :
+            <GameOverScreen rounds={guessRounds} choice={userNumber} onRestart={reStartHandler} />
       }
     </View>
   );

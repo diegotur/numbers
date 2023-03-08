@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native'
 import React from 'react'
 import Card from '../components/Card'
-import COLORS from '../constants/Colors'
+import Colors from '../constants/Colors'
 import Input from '../components/Input'
 import NumberContainer from '../components/NumberContainer'
 import { titleStyle } from '../constants/TextStyles'
@@ -51,10 +51,10 @@ const StartGameScreen = ({ onStartGame }) => {
           />
           <View style={styles.buttonsContainer}>
             <View style={styles.button}>
-              <Button title="Limpiar" onPress={resetInputHandler} color={COLORS.accent} />
+              <Button title="Limpiar" onPress={resetInputHandler} color={Colors.accent} />
             </View>
             <View style={styles.button}>
-              <Button title="Confirmar" onPress={confirmInputHandler} color={COLORS.primary} />
+              <Button title="Confirmar" onPress={confirmInputHandler} color={Colors.primary} />
             </View>
           </View>
         </Card>
@@ -82,10 +82,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...titleStyle,
+    marginTop: Dimensions.get('window').height > 600 ? 200 : 10,
   },
   inputContainer: {
-    width: 300,
-    maxWidth: '80%',
+    minWidth: 300,
+    width: '90%',
+    maxWidth: 320,
     padding: 20,
     alignItems: 'center'
   },
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15
   },
   button: {
-    width: 100
+    width: Dimensions.get('window').width / 4
   },
   selectedNumberContainer:{
     marginTop: 20,

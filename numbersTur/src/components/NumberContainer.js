@@ -4,7 +4,7 @@ import Colors from '../constants/Colors'
 
 const NumberContainer = ({children}) => {
   return (
-    <View style={styles.conatiner}>
+    <View style={styles.container}>
       <Text style={styles.number}>{children}</Text>
     </View>
   )
@@ -13,7 +13,7 @@ const NumberContainer = ({children}) => {
 export default NumberContainer
 
 const styles = StyleSheet.create({
-    conatiner:{
+    container:{
         borderWidth:2,
         borderColor: Colors.accent,
         padding: 10,
