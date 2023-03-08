@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from 'react-native'
 import React from 'react'
 import Card from '../components/Card'
 import Colors from '../constants/Colors'
@@ -24,7 +24,7 @@ const StartGameScreen = ({ onStartGame }) => {
 
   const confirmInputHandler = () => {
     const chosenNumber = parseInt(enteredValue)
-    if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
+    if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 999 ||enteredValue.length === 0) {
       return
     }
     setConfirmed(true)
@@ -39,13 +39,13 @@ const StartGameScreen = ({ onStartGame }) => {
       <View style={styles.container}>
         <Text style={styles.title}>Comenzar Juego</Text>
         <Card style={styles.inputContainer}>
-          <Text style={styles.inputDectiptionText}>Elija un numero</Text>
+          <Text style={styles.inputDectiptionText}>Elija un numero entre 1 y 999</Text>
           <Input style={styles.input}
             blurOnSubmit
             autoCapitalize='none'
             autoCorrect={false}
             keyboardType='number-pad'
-            maxLength={2}
+            maxLength={3}
             value={enteredValue}
             onChangeText={numberInputHandler}
           />
@@ -62,9 +62,9 @@ const StartGameScreen = ({ onStartGame }) => {
           <Card style={styles.selectedNumberContainer}>
             <Text>Tu seleccion</Text>
             <NumberContainer>{selectedNumber}</NumberContainer>
-            <Button title="Iniciar Juego" onPress={()=>{
+            <Button title="Iniciar Juego" onPress={() => {
               onStartGame(selectedNumber)
-            }}/>
+            }} />
           </Card>
         }
       </View>
@@ -107,11 +107,11 @@ const styles = StyleSheet.create({
   button: {
     width: Dimensions.get('window').width / 4
   },
-  selectedNumberContainer:{
+  selectedNumberContainer: {
     marginTop: 20,
     width: 200,
     maxWidth: '80%',
-    padding:10,
+    padding: 10,
     alignItems: 'center',
   }
 })

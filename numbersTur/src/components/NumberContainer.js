@@ -17,13 +17,14 @@ const styles = StyleSheet.create({
         borderWidth:2,
         borderColor: Colors.accent,
         padding: 10,
-        borderRadius:10,
-        marginVertical: 10,
+        backgroundColor: "green",
+        borderRadius:30,
+        marginVertical: 70,
         alignItems: 'center',
         justifyContent: 'center'
     },
     number:{
-        color: Colors.accent,
+        color: "white",
         fontSize: 22
     }
 })

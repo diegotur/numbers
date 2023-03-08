@@ -7,7 +7,7 @@ const GameOverScreen = ({ rounds, choice, onRestart}) => {
     <View style={styles.screen}>
         <Image source={require('../../assets/game-over.jpg')} style={styles.image} resizeMode='cover' />
         <Card style={styles.resultContainer}>
-            <Text>El juego termino en {rounds} rondas</Text>
+            <Text>Me llevó {rounds} rondas adivinar tu número!</Text>
             <Text>El numero era: {choice}</Text>
         </Card>
         <Button title='REINICIAR' onPress={onRestart}/>

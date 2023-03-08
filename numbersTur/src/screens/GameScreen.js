@@ -16,10 +16,10 @@ const GameScreen = ({userOption, onGameOver}) => {
         }
     };
 
-    const [currentGuess, setCurrentGuess] = React.useState(generateRandomBetween(1, 100, userOption));
+    const [currentGuess, setCurrentGuess] = React.useState(generateRandomBetween(1, 1000, userOption));
     const [rounds, setRounds] = React.useState(0);
     const currentLow = React.useRef(1);
-    const currentHigh = React.useRef(100);
+    const currentHigh = React.useRef(1000);
 
     React.useEffect(() => {
         if (currentGuess === userOption) {
@@ -39,13 +39,13 @@ const GameScreen = ({userOption, onGameOver}) => {
         }
         const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
         setCurrentGuess(nextNumber);
-        setRounds(curRounds => curRounds + 1);
+        setRounds(rounds => rounds + 1);
     };
 
 
   return (
     <View style={styles.screen}>
-      <Text>La suposicion del oponente</Text>
+      <Text style={styles.text} >¿Este número es MAYOR o MENOR al tuyo?</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.buttonContainer}>
         <Button title='MAYOR' onPress={nextGuessHandler.bind(this, 'lower')}/>
@@ -61,13 +61,18 @@ const styles = StyleSheet.create({
     screen:{
         flex:1,
         padding:10,
+        marginTop: 80,
         alignItems:'center'
     },
     buttonContainer:{
         flexDirection:'row',
         justifyContent:'space-around',
         marginTop:20,
-        width:300,
-        maxWidth:'80%'
-    }
+        width:500,
+        maxWidth:'90%'
+    },
+    text:{
+        fontSize: 20,
+    },
+
 })
